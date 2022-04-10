@@ -9,15 +9,23 @@ module.exports = function (app) {
   //   })
   // );
   app.use(
-    "/api_nhl",
+    "/feed/json/nhl-2021/minnesota-wild",
     createProxyMiddleware({
       target:
-        "https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild",
+        "https://fixturedownload.com",
+        // "https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild",
+        //"https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild",
+        //"https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false",
+      // secure: true,
+      loglevel: 'debug',
       headers: {
         accept: "application/json",
         method: "GET",
       },
       changeOrigin: true,
+      // router: {
+      //   "/api/admin": "https://culture.seocho.go.kr:3000",
+      // },
     })
   );
   app.use(
