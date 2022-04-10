@@ -1,31 +1,51 @@
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import './style.css';
+import data from '../data/wild-schedule.json';
 
 export default function HockeyScores() {
 
-  var config = {
-  method: 'get',
-  url: 'https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild',
+  const [schedule, setSchedule] = useState('');
+
+  // var config = {
+  //   method: 'get',
+  //   url: 'https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild',
+  //   headers: {
+  //   }
+  // };
+
+
+  const config = {
+  method: 'GET',
+  url: 'https://api-nba-v1.p.rapidapi.com/teams',
   headers: {
-    'Cookie': 'ARRAffinity=c739977c719e9c5c37648003f9e72eebce8d2170eb9c97490d5c4f0957d9074e; ARRAffinitySameSite=c739977c719e9c5c37648003f9e72eebce8d2170eb9c97490d5c4f0957d9074e'
+    'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
+    'X-RapidAPI-Key': '632241f898msh5c971d6074fb435p1518cajsn2db7c8d6f421'
   }
 };
 
-axios(config)
-.then(function (response) {
-  console.log(JSON.stringify(response.data));
-})
-.catch(function (error) {
-  console.log(error);
-});
+  function showSchedule() {
+    const newdata = data.map( (data) => {
+      if( data.HomeTeamScore === null ) {
+        if( data.HomeTeam === 'Minnesota Wild' ) {
+           console.log(data.DateUtc + " - vs " + data.AwayTeam);
+        }
+        if( data.AwayTeam === 'Minnesota Wild' ) {
+          console.log(data.DateUtc + " - at " + data.HomeTeam);
+        }
+      }
+    });
+  };
+
+
+  // useEffect(async () => {
+  // }, []);
 
     return (
-      <body>
-
+      <div>
        <h1>Hockey Scores</h1>
-
-
-
-       </body>
+      <button onClick={showSchedule}>Show Schedule</button>
+      <div id="content"></div>
+      </div>
     );
 };
