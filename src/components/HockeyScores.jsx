@@ -6,7 +6,7 @@ import data from '../data/wild-schedule.json';
 export default function HockeyScores() {
 
   // const [schedule, setSchedule] = useState('')
-  const [login, setLogin] = useState('')
+  const [login, setLogin] = useState('no data')
 
   // var config = {
   //   method: 'get',
@@ -17,9 +17,17 @@ export default function HockeyScores() {
 
   async function apiCall() {
       //const response = await axios.get("/api/login")
+     try {
       const response = await axios.get("http://localhost:3001/api/login")
       console.log('apiCall was made');
       return response.data;
+     } catch(error) {
+       if(error) {
+         console.log(error.data);
+       } else {
+         console.log("error calling apiCall()");
+       }
+     }
     }
 
 
