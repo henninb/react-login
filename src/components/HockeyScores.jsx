@@ -3,8 +3,6 @@ import axios from 'axios';
 import data from '../data/wild-schedule.json';
 
 export default function HockeyScores() {
-
-  // const [schedule, setSchedule] = useState('')
   const [login, setLogin] = useState([])
 
   // var config = {
@@ -18,7 +16,7 @@ export default function HockeyScores() {
       //const response = await axios.get("/api/login")
      try {
       // const response = await axios.get("http://localhost:3000/api/nhl")
-      const response = await axios.get("/api/nhl")
+      const response = await axios.get("/api_coin")
       console.log('apiCall was made.');
       //return JSON.stringify(response.data);
       return (response.data);
@@ -42,8 +40,24 @@ export default function HockeyScores() {
 // }
 
   async function showSchedule(e) {
-    console.log('showSchedule was called #1.');
     setLogin(await apiCall())
+
+    console.log('showSchedule was called #1.');
+    if( login ) {
+      // console.log("size: " login.length);
+      console.log("size: " + Object.keys(login).length);
+      console.log(login);
+
+      Object.entries(login).forEach(([key, value]) => {
+        console.log(`${key}: ${JSON.stringify(value)}`);
+      });
+
+      // login.map( (_data) => {
+      //   // console.log(_data.id);
+      //   return "empty"
+      // })
+    } else {
+
     login.map( (_data) => {
       if( _data.HomeTeamScore === null ) {
         if( _data.HomeTeam === 'Minnesota Wild' ) {
@@ -55,6 +69,7 @@ export default function HockeyScores() {
       }
       return "empty"
     })
+    }
   }
 
   // useEffect(async () => {
@@ -64,7 +79,9 @@ export default function HockeyScores() {
       <div>
        <h1>Hockey Scores</h1>
       <button onClick={showSchedule}>Show Schedule</button>
-      <div id="content">{login}</div>
+      <div>begin</div>
+      { login.map((data) => { <div>{data.name}</div> }) }
+      <div>end</div>
       </div>
     )
 }
