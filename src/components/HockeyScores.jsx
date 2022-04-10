@@ -18,9 +18,9 @@ export default function HockeyScores() {
   async function apiCall() {
       //const response = await axios.get("/api/login")
      try {
-      const response = await axios.get("http://localhost:3001/api/login")
+      const response = await axios.get("http://localhost:3000/api_to_external_website")
       console.log('apiCall was made');
-      return response.data;
+      return JSON.stringify(response.data);
      } catch(error) {
        if(error) {
          console.log(error.data);
