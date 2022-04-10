@@ -16,7 +16,9 @@ export default function HockeyScores() {
   // };
 
   async function apiCall() {
-      const response = await axios.get("/api/login")
+      //const response = await axios.get("/api/login")
+      const response = await axios.get("http://localhost:3001/api/login")
+      console.log('apiCall was made');
       return response.data;
     }
 
@@ -42,6 +44,7 @@ export default function HockeyScores() {
       }
     })
 
+    console.log('showSchedule was called.');
     setLogin(await apiCall())
   }
 
