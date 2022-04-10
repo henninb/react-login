@@ -14,7 +14,7 @@ app.use(cors());
 
 app.get('/api/login', (_req, res) => {
   // res.json({username: "example"});
-   res.send('put the schedule here');
+   res.send('api login called.');
 });
 
 // app.get('/', (_req, res) => {

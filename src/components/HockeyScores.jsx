@@ -6,7 +6,7 @@ import data from '../data/wild-schedule.json';
 export default function HockeyScores() {
 
   // const [schedule, setSchedule] = useState('')
-  const [login, setLogin] = useState('no data')
+  const [login, setLogin] = useState([])
 
   // var config = {
   //   method: 'get',
@@ -18,9 +18,10 @@ export default function HockeyScores() {
   async function apiCall() {
       //const response = await axios.get("/api/login")
      try {
-      const response = await axios.get("http://localhost:3001/api_to_external_website")
+      const response = await axios.get("http://localhost:3000/api/nhl")
       console.log('apiCall was made');
-      return JSON.stringify(response.data);
+      //return JSON.stringify(response.data);
+      return (response.data);
      } catch(error) {
        if(error) {
          console.log(error.data);
@@ -42,7 +43,8 @@ export default function HockeyScores() {
 
   async function showSchedule(e) {
     console.log('showSchedule was called #1.');
-    data.map( (data) => {
+    setLogin(await apiCall())
+    login.map( (data) => {
       if( data.HomeTeamScore === null ) {
         if( data.HomeTeam === 'Minnesota Wild' ) {
            console.log(data.DateUtc + " - vs " + data.AwayTeam)
@@ -53,9 +55,6 @@ export default function HockeyScores() {
       }
       return "empty"
     })
-
-    console.log('showSchedule was called #2.');
-    setLogin(await apiCall())
   }
 
   // useEffect(async () => {
