@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import './style.css';
 import data from '../data/wild-schedule.json';
 
 export default function HockeyScores() {
 
-  const [schedule, setSchedule] = useState('')
+  // const [schedule, setSchedule] = useState('')
   const [login, setLogin] = useState('')
 
   // var config = {
@@ -33,7 +33,8 @@ export default function HockeyScores() {
 // }
 
   async function showSchedule(e) {
-    const newdata = data.map( (data) => {
+    console.log('showSchedule was called #1.');
+    data.map( (data) => {
       if( data.HomeTeamScore === null ) {
         if( data.HomeTeam === 'Minnesota Wild' ) {
            console.log(data.DateUtc + " - vs " + data.AwayTeam)
@@ -42,12 +43,12 @@ export default function HockeyScores() {
           console.log(data.DateUtc + " - at " + data.HomeTeam)
         }
       }
+      return "empty"
     })
 
-    console.log('showSchedule was called.');
+    console.log('showSchedule was called #2.');
     setLogin(await apiCall())
   }
-
 
   // useEffect(async () => {
   // }, [])

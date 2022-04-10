@@ -17,3 +17,7 @@ app.get('/api/login', (req, res) => {
    res.send('put the schedule here');
 });
 
+app.get('/', (req, res) => {
+  // res.json({username: "example"});
+   res.send('this is the root');
+});
