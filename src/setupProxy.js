@@ -9,13 +9,6 @@ module.exports = function (app) {
     })
   );
   app.use(
-    "/api2",
-    createProxyMiddleware({
-      target: `http://localhost:3070`,
-      changeOrigin: true,
-    })
-  );
-  app.use(
     "/api_to_external_website",
     createProxyMiddleware({
       target:
@@ -27,4 +20,5 @@ module.exports = function (app) {
       changeOrigin: true,
     })
   );
+  app.listen(3001);
 };
