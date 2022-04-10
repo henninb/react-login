@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import './style.css';
 import data from '../data/wild-schedule.json';
 
 export default function HockeyScores() {
@@ -18,8 +17,9 @@ export default function HockeyScores() {
   async function apiCall() {
       //const response = await axios.get("/api/login")
      try {
-      const response = await axios.get("http://localhost:3000/api/nhl")
-      console.log('apiCall was made');
+      // const response = await axios.get("http://localhost:3000/api/nhl")
+      const response = await axios.get("/api/nhl")
+      console.log('apiCall was made.');
       //return JSON.stringify(response.data);
       return (response.data);
      } catch(error) {
@@ -44,13 +44,13 @@ export default function HockeyScores() {
   async function showSchedule(e) {
     console.log('showSchedule was called #1.');
     setLogin(await apiCall())
-    login.map( (data) => {
-      if( data.HomeTeamScore === null ) {
-        if( data.HomeTeam === 'Minnesota Wild' ) {
-           console.log(data.DateUtc + " - vs " + data.AwayTeam)
+    login.map( (_data) => {
+      if( _data.HomeTeamScore === null ) {
+        if( _data.HomeTeam === 'Minnesota Wild' ) {
+           console.log(data.DateUtc + " - vs " + _data.AwayTeam)
         }
         if( data.AwayTeam === 'Minnesota Wild' ) {
-          console.log(data.DateUtc + " - at " + data.HomeTeam)
+          console.log(_data.DateUtc + " - at " + _data.HomeTeam)
         }
       }
       return "empty"

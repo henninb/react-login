@@ -33,6 +33,5 @@ module.exports = function (app) {
     })
   );
 
-  conole.log('got here');
-  // app.listen(3001);
+  //app.listen(3001);
 };
