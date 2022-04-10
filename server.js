@@ -12,12 +12,11 @@ app.use(express.static(`${__dirname}/example-react/build`));
 app.use(cors());
 // app.use(express.static(path.join(__dirname, 'build')))
 
-app.get('/api/login', (req, res) => {
+app.get('/api/login', (_req, res) => {
   // res.json({username: "example"});
    res.send('put the schedule here');
 });
 
-app.get('/', (req, res) => {
-  // res.json({username: "example"});
-   res.send('this is the root');
-});
+// app.get('/', (_req, res) => {
+//    res.send('this is the root');
+// });
