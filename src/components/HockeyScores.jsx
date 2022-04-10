@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import axios from 'axios';
-import MaterialTable from 'material-table';
-import data from '../data/wild-schedule.json';
 
 export default function HockeyScores() {
   const [login, setLogin] = useState(null)
