@@ -1,46 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 export default function HockeyScores() {
   const [login, setLogin] = useState(null)
 
-  // var config = {
-  //   method: 'get',
-  //   url: 'https://fixturedownload.com/feed/json/nhl-2021/minnesota-wild',
-  //   headers: {
-  //   }
-  // };
-
-  async function apiCall() {
-      //const response = await axios.get("/api/login")
-     try {
-      // const response = await axios.get("http://localhost:3000/api/nhl")
-      const response = await axios.get("/feed/json/nhl-2021/minnesota-wild")
-      console.log('apiCall was made.');
-       console.log(response.data);
-      //return JSON.stringify(response.data);
-      return (response.data);
-     } catch(error) {
-       if(error) {
-         console.log(error.data);
-       } else {
-         console.log("error calling apiCall()");
-       }
-     }
-    }
-
-
-  // const config = {
-  // method: 'GET',
-  // url: 'https://api-nba-v1.p.rapidapi.com/teams',
-  // headers: {
-  //   'X-RapidAPI-Host': 'api-nba-v1.p.rapidapi.com',
-  //   'X-RapidAPI-Key': '632241f898msh5c971d6074fb435p1518cajsn2db7c8d6f421'
-  // }
-// }
-
   async function showSchedule(e) {
-    setLogin(await apiCall())
 
     console.log('showSchedule was called #1.');
     if( login ) {
@@ -73,8 +37,24 @@ export default function HockeyScores() {
     }
   }
 
-  // useEffect(async () => {
-  // }, [])
+  const fetchMyAPI = useCallback(async () => {
+       try {
+        const response = await axios.get("/feed/json/nhl-2021/minnesota-wild")
+        console.log('apiCall was made.');
+         console.log(response.data);
+         setLogin(response.data);
+       } catch(error) {
+         if(error) {
+           console.log(error.data);
+         } else {
+           console.log("error calling apiCall()");
+         }
+       }
+      }, []);
+
+  useEffect(() => {
+    fetchMyAPI();
+  }, [fetchMyAPI])
        // <MaterialTable
       // title="Wild Hockey"
       // columns={[
