@@ -14,14 +14,12 @@ export default function HockeyScores() {
     headerName: 'date',
     width: 175,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'Location',
     headerName: 'location',
     width: 150,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'HomeTeam',
@@ -29,7 +27,6 @@ export default function HockeyScores() {
     // type: 'number',
     width: 150,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'HomeTeamScore',
@@ -37,7 +34,6 @@ export default function HockeyScores() {
     // type: 'number',
     width: 75,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'AwayTeam',
@@ -45,14 +41,12 @@ export default function HockeyScores() {
     // type: 'number',
     width: 150,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'AwayTeamScore',
     headerName: 'score',
     width: 75,
     editable: true,
-    cellStyle: { whiteSpace: "nowrap" },
   },
 ];
 
@@ -91,7 +85,7 @@ export default function HockeyScores() {
 
       <div style={{ height: 800, width: '100%' }}>
       <DataGrid
-        getRowId={row => uuidv4()}
+        getRowId={() => uuidv4()}
         rows={logins ? logins :[]}
         columns={columns}
         pageSize={100}
@@ -101,6 +95,5 @@ export default function HockeyScores() {
       />
       </div>
       </div>
-
     )
 }
