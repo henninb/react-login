@@ -1,38 +1,59 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { DataGrid } from '@mui/x-data-grid';
+import { v4 as uuidv4 } from 'uuid';
 
 export default function HockeyScores() {
-  const [login, setLogin] = useState(null)
+  const [logins, setlogins] = useState(null)
 
 
   const columns = [
-  { field: 'id', headerName: 'ID', width: 90 },
+  // { field: 'id', headerName: 'id' },
   {
     field: 'DateUtc',
     headerName: 'date',
-    // width: 150,
+    width: 175,
     editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'Location',
     headerName: 'location',
-    // width: 150,
+    width: 150,
     editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'HomeTeam',
     headerName: 'home',
     // type: 'number',
-    // width: 110,
+    width: 150,
     editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    field: 'HomeTeamScore',
+    headerName: 'score',
+    // type: 'number',
+    width: 75,
+    editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
   },
   {
     field: 'AwayTeam',
     headerName: 'away',
     // type: 'number',
     // width: 110,
+    width: 150,
     editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
+  },
+  {
+    field: 'AwayTeamScore',
+    headerName: 'score',
+    width: 75,
+    editable: true,
+    cellStyle: { whiteSpace: "nowrap" },
   },
   // {
   //   field: 'fullName',
@@ -46,40 +67,28 @@ export default function HockeyScores() {
 ];
 
   const rows = [
-      { id: 1, MatchNumber: 1307, RoundNumber: 28, DateUtc: "2022-04-30 00:00:00Z", Location: "Xcel Energy Center", HomeTeam: "Minnesota Wild", AwayTeam: "Colorado Avalanche",
-    Group: null, HomeTeamScore: null, AwayTeamScore: null
-  }
-  // { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  // { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  // { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  // { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  // { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  // { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  // { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  // { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  // { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
+      //{ id: 1, MatchNumber: 1307, RoundNumber: 28, DateUtc: "2022-04-30 00:00:00Z", Location: "Xcel Energy Center", HomeTeam: "Minnesota Wild", AwayTeam: "Colorado Avalanche", Group: null, HomeTeamScore: null, AwayTeamScore: null },
+      { MatchNumber: 1307, RoundNumber: 28, DateUtc: "2022-04-30 00:00:00Z", Location: "Xcel Energy Center", HomeTeam: "Minnesota Wild", AwayTeam: "Colorado Avalanche", Group: null, HomeTeamScore: null, AwayTeamScore: null },
 ];
 
-
   async function showSchedule(e) {
-
     console.log('showSchedule was called #1.');
-    if( login ) {
-      // console.log("size: " login.length);
-      console.log("size: " + Object.keys(login).length);
-      console.log(login);
+    if( logins ) {
+      // console.log("size: " logins.length);
+      console.log("size: " + Object.keys(logins).length);
+      console.log(logins);
 
-      Object.entries(login).forEach(([_key, value]) => {
+      Object.entries(logins).forEach(([_key, value]) => {
         console.log(`${JSON.stringify(value)}`);
       });
 
-      // login.map( (_data) => {
+      // logins.map( (_data) => {
       //   // console.log(_data.id);
       //   return "empty"
       // })
     } else {
 
-    // login.map( (_data) => {
+    // logins.map( (_data) => {
     //   if( _data.HomeTeamScore === null ) {
     //     if( _data.HomeTeam === 'Minnesota Wild' ) {
     //        console.log(data.DateUtc + " - vs " + _data.AwayTeam)
@@ -99,7 +108,7 @@ export default function HockeyScores() {
         const response = await axios.get("/feed/json/nhl-2021/minnesota-wild")
         console.log('apiCall was made.');
          console.log(response.data);
-         setLogin(response.data);
+         setlogins(response.data);
        } catch(error) {
          if(error) {
            console.log(error.data);
@@ -126,8 +135,12 @@ export default function HockeyScores() {
        //      type: "string",
        //    },
       // ]}
-      // data={login ? login : []}
+      // data={logins ? logins : []}
       // />
+  //
+        //getRowId={(row) => row.statId}
+         //getRowId={(row) => row._id}
+        //id={Math.random()}
 
     return (
       <div>
@@ -136,12 +149,13 @@ export default function HockeyScores() {
       <div>begin</div>
       <div>end</div>
 
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 800, width: '100%' }}>
       <DataGrid
-        rows={rows}
+        getRowId={row => uuidv4()}
+        rows={logins ? logins :[]}
         columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
+        pageSize={100}
+        rowsPerPageOptions={[100]}
         checkboxSelection
         disableSelectionOnClick
       />
