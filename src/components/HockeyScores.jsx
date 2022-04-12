@@ -43,7 +43,6 @@ export default function HockeyScores() {
     field: 'AwayTeam',
     headerName: 'away',
     // type: 'number',
-    // width: 110,
     width: 150,
     editable: true,
     cellStyle: { whiteSpace: "nowrap" },
@@ -55,15 +54,6 @@ export default function HockeyScores() {
     editable: true,
     cellStyle: { whiteSpace: "nowrap" },
   },
-  // {
-  //   field: 'fullName',
-  //   headerName: 'Full name',
-  //   description: 'This column has a value getter and is not sortable.',
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  // },
 ];
 
   const rows = [
@@ -73,34 +63,6 @@ export default function HockeyScores() {
 
   async function showSchedule(e) {
     console.log('showSchedule was called #1.');
-    if( logins ) {
-      // console.log("size: " logins.length);
-      console.log("size: " + Object.keys(logins).length);
-      console.log(logins);
-
-      Object.entries(logins).forEach(([_key, value]) => {
-        console.log(`${JSON.stringify(value)}`);
-      });
-
-      // logins.map( (_data) => {
-      //   // console.log(_data.id);
-      //   return "empty"
-      // })
-    } else {
-
-    // logins.map( (_data) => {
-    //   if( _data.HomeTeamScore === null ) {
-    //     if( _data.HomeTeam === 'Minnesota Wild' ) {
-    //        console.log(data.DateUtc + " - vs " + _data.AwayTeam)
-    //     }
-    //     if( data.AwayTeam === 'Minnesota Wild' ) {
-    //       console.log(_data.DateUtc + " - at " + _data.HomeTeam)
-    //     }
-    //   }
-    //   return "empty"
-    // })
-      console.log("failed list");
-    }
   }
 
   const fetchMyAPI = useCallback(async () => {
@@ -121,33 +83,11 @@ export default function HockeyScores() {
   useEffect(() => {
     fetchMyAPI();
   }, [fetchMyAPI])
-       // <MaterialTable
-      // title="Wild Hockey"
-      // columns={[
-       //    {
-       //      title: "MatchNumber",
-       //      field: "MatchNumber",
-       //      type: "date",
-       //    },
-       //    {
-       //      title: "HomeTeam",
-       //      field: "HomeTeam",
-       //      type: "string",
-       //    },
-      // ]}
-      // data={logins ? logins : []}
-      // />
-  //
-        //getRowId={(row) => row.statId}
-         //getRowId={(row) => row._id}
-        //id={Math.random()}
 
     return (
       <div>
        <h1>Wild Hockey Scores</h1>
       <button onClick={showSchedule}>Show Schedule</button>
-      <div>begin</div>
-      <div>end</div>
 
       <div style={{ height: 800, width: '100%' }}>
       <DataGrid
