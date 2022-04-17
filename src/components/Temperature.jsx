@@ -10,7 +10,7 @@ export default function Temperature() {
      //console.log(formEntries)
      console.log(event.formData);
      const formData = new FormData(event.target);
-     console.log(formData.get('fahrenheit'));
+     console.log("f=" + formData.get('fahrenheit'));
   // Now you can use formData.get('foo'), for example.
 
      const body = '{"fahrenheit":33.0}'
