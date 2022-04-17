@@ -2,8 +2,33 @@ import axios from 'axios';
 
 export default function Temperature() {
 
-  async function postCall(event) {
-     console.log(event.formData);
+  async function toFahrenheit(event) {
+     event.preventDefault()
+     let celsius = document.getElementById("celsius").value;
+     console.log(celsius);
+     let data = {
+        celsius: celsius,
+     };
+       try {
+        const response = await axios.post("/fahrenheit", data,
+        {
+          headers: { 'Content-Type': 'application/json', }
+        }
+        )
+        console.log('apiCall was made.');
+         console.log(response.data);
+         // setlogins(response.data);
+       } catch(error) {
+         if(error) {
+           console.log(error.data);
+         } else {
+           console.log("error calling apiCall()");
+         }
+       }
+  }
+
+  async function toCelsius(event) {
+     //console.log(event.formData);
      event.preventDefault()
      // const form = document.getElementById("temperature-input")
      // const formEntries = new FormData(form).entries();
@@ -18,9 +43,8 @@ export default function Temperature() {
      };
      // const formData = new FormData(event.target);
      // console.log("f=" + formData.get('fahrenheit'));
-  // Now you can use formData.get('foo'), for example.
+     // Now you can use formData.get('foo'), for example.
 
-     // const body = '{"fahrenheit":33.0}'
        try {
         const response = await axios.post("/celsius", data,
         {
@@ -38,14 +62,19 @@ export default function Temperature() {
          }
        }
   }
-         //<form method="POST" action="/celsius">
-           //<!-- <input type="submit" name="submit" onClick={postCall} /> -->
 
     return (
         <div>
            <form name="temperature-input">
+           <label>fahrenheit</label>
            <input type="text" name="fahrenheit" id="fahrenheit" />
-           <button onClick={postCall}>test</button>
+           <button onClick={toCelsius}>toCelsius</button>
+           </form>
+
+           <form name="temperature-input">
+           <label>celsius</label>
+           <input type="text" name="celsius" id="celsius" />
+           <button onClick={toFahrenheit}>toFahrenheit</button>
            </form>
         </div>
     );
