@@ -5,8 +5,11 @@ export default function Temperature() {
   async function postCall(e) {
      const body = '{"fahrenheit":33.0}'
        try {
-        //const response = await axios.post("/celsius", body)
-        const response = await axios.post("/celsius", body)
+        const response = await axios.post("/celsius", body,
+        {
+          headers: { 'Content-Type': 'application/json', }
+        }
+        )
         console.log('apiCall was made.');
          console.log(response.data);
          // setlogins(response.data);
