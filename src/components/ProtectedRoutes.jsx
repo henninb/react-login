@@ -21,38 +21,37 @@ function getCookies() {
     return authTokens;
 }
 
-  const authApiCall = async (payload) => {
-    console.log('authApiCall');
+const authApiCall = async (payload) => {
+  console.log('authApiCall');
 
-    try {
-    const response = await axios.get("/api/auth", {
-      timeout: 0,
-      headers: {
-        "Content-Type": "application/text",
-        "Authorization": "Bearer " + payload
-      },
-    });
+  try {
+  const response = await axios.get("/api/auth", {
+    timeout: 0,
+    headers: {
+      "Content-Type": "application/text",
+      "Authorization": "Bearer " + payload
+    },
+  });
 
-    return response.data;
-    } catch (error ) {
-      console.log(error.data);
-      window.location.href = '/login'
-    }
-    return false
-    //return response.data.toLowerCase() === 'true'
-  };
+  return response.data;
+  } catch (error ) {
+    console.log(error.data);
+    window.location.href = '/login'
+  }
+  return false
+  //return response.data.toLowerCase() === 'true'
+};
 
 const useAuth = async () => {
-    console.log('useAuth');
+  console.log('useAuth');
   const token = getCookies();
   if( token && token["access-token"] ) {
     const authBoolean = await authApiCall(token["access-token"]);
     if( authBoolean === true ) {
-      console.log("true: " + token["access-token"]);
+      //console.log("true: " + token["access-token"]);
       return true
     }
   }
-    console.log("false: " + token["access-token"]);
   return false
 };
 
