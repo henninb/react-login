@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Navigate, Outlet } from "react-router-dom";
 
 function getCookies() {
@@ -16,11 +17,25 @@ function getCookies() {
     return authTokens;
 }
 
-const useAuth = () => {
+  const authApiCall = async (payload) => {
+    let endpoint =  '/api/auth';
+
+    const response = await axios.get(endpoint, {
+      timeout: 0,
+      headers: {
+        "Content-Type": "application/text",
+        "Authorization": "Bearer " + payload
+      },
+    });
+
+    return response.data;
+  };
+
+const useAuth = async () => {
   const token = getCookies();
   if( token && token["access-token"] ) {
-    //call
-    console.log(token);
+    const authBoolean = await authApiCall(token["access-token"]);
+    console.log(authBoolean);
     console.log(token["access-token"]);
     return true
   }
