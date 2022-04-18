@@ -42,12 +42,12 @@ export default function Login() {
       password: password,
     };
     // console.log(state);
-    console.log("send: " + JSON.stringify(data));
+    // console.log("send: " + JSON.stringify(data));
 
     try {
       let response = await userLogin(data);
       console.log("response: " + JSON.stringify(response));
-     // window.location.href = '/home'
+     window.location.href = '/home'
     } catch (error) {
       console.log(error.data);
     }
