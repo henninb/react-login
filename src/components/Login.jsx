@@ -1,8 +1,5 @@
-//import { useState } from "react";
 import axios from "axios";
 export default function Login() {
-
-
     // const [state, setState] = useState({
     // email: "",
     // password: "",
@@ -52,7 +49,6 @@ export default function Login() {
       console.log(error.data);
     }
   };
-
 
     return (
         <div className="login">
