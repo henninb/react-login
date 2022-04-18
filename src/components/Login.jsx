@@ -1,20 +1,20 @@
-import { useState } from "react";
+//import { useState } from "react";
 import axios from "axios";
 export default function Login() {
 
 
-    const [state, setState] = useState({
-    email: "",
-    password: "",
-  });
+    // const [state, setState] = useState({
+    // email: "",
+    // password: "",
+  // });
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setState((previousState) => ({
-      ...previousState,
-      [id]: value,
-    }));
-  };
+  // const handleChange = (e) => {
+  //   const { id, value } = e.target;
+  //   setState((previousState) => ({
+  //     ...previousState,
+  //     [id]: value,
+  //   }));
+  // };
 
   const userLogin = async (payload) => {
     let endpoint =  '/api/login';
@@ -26,6 +26,8 @@ export default function Login() {
       },
     });
 
+    const expiryDate = new Date(new Date().getTime() + 6 * 60 * 60 * 1000).toUTCString();
+    document.cookie = `access-token=${response.data}; path=/; expires=${expiryDate}; secure; samesite=lax`;
     return response.data;
   };
 
@@ -40,7 +42,7 @@ export default function Login() {
       password: password,
     };
     // console.log(state);
-    console.log("send: " + data);
+    console.log("send: " + JSON.stringify(data));
 
     try {
       let response = await userLogin(data);
