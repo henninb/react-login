@@ -1,11 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export default function ProtectedRoutes() {
-// delete a cookie
-// document.cookie = 'access-token=; Max-Age=0'
-  //const [auth, setAuth] = useState(true);
   const [auth, setAuth] = useState(null);
 
   async function getCookies() {
@@ -44,27 +41,7 @@ export default function ProtectedRoutes() {
       window.location.href = '/login'
     }
     return false
-    //return response.data.toLowerCase() === 'true'
   };
-
-  // const useAuth = useCallback(async () => {
-  //   console.log('useAuth');
-  //   const token = getCookies();
-  //   if( token && token["access-token"] ) {
-  //     const authBoolean = await authApiCall(token["access-token"]);
-  //     if( authBoolean === true ) {
-  //       setAuth(true)
-  //     }
-  //   }
-  //   setAuth(false)
-  // }, []);
-
-  // useEffect(() => {
-  //   if( !auth ) {
-  //     useAuth();
-  //   }
-  // }, [useAuth, auth])
-
 
   const fetchUserAuth = useCallback(async () => {
 
@@ -78,21 +55,16 @@ export default function ProtectedRoutes() {
       }
     }
     setAuth(false)
+    window.location.href = '/login'
     return false
   }, []);
 
   useEffect(() => {
-    // setAuth(true);
     if( !auth ) {
-      const result = fetchUserAuth();
-    //   console.log("auth:" + auth);
-    //   console.log("result:" + result);
+      fetchUserAuth();
     }
   }, [fetchUserAuth, auth])
 
-  //const isAuth = await useAuth();
-  //console.log('is auth: ' + isAuth);
- // console.log('isAuth: ' + JSON.stringify(isAuth));
   //pass the auth token to the Outlet
     //auth ? <Outlet /> : <Navigate to="/login" />
   return (
