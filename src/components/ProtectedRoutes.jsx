@@ -35,14 +35,16 @@ const useAuth = async () => {
   const token = getCookies();
   if( token && token["access-token"] ) {
     const authBoolean = await authApiCall(token["access-token"]);
-    console.log(authBoolean);
-    console.log(token["access-token"]);
-    return true
+    if( authBoolean === true ) {
+    // console.log(token["access-token"]);
+      return true
+    }
   }
   return false
 };
 
 export default function ProtectedRoutes() {
   const isAuth = useAuth();
+  //pass the auth token to the Outlet
   return isAuth ? <Outlet /> : <Navigate to="/login" />;
 }
