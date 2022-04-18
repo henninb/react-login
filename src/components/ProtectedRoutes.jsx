@@ -32,7 +32,8 @@ function getCookies() {
       },
     });
 
-    return response.data;
+    // return response.data;
+    return response.data.toLowerCase() === 'true'
   };
 
 const useAuth = async () => {
