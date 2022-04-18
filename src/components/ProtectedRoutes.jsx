@@ -18,16 +18,18 @@ function getCookies() {
 
 const useAuth = () => {
   const token = getCookies();
-  const user = { loggedIn: false };
+  // const user = { loggedIn: false };
   if( token ) {
     //call
-    console.log('check for auth');
+    // console.log('check for auth: ' + user.loggedIn);
     console.log(token);
-    user.loggedIn = true
-    // const user = { loggedIn: true };
+    console.log(token["access-token"]);
+    // user.loggedIn = true
+    return true
   }
-  return user && user.loggedIn;
-  //return false
+  // console.log(user.loggedIn);
+  //return user && user.loggedIn;
+  return false
 };
 
 export default function ProtectedRoutes() {
