@@ -56,10 +56,10 @@ const useAuth = async () => {
   return false
 };
 
-export default function ProtectedRoutes() {
-  const isAuth = useAuth();
+export default async function ProtectedRoutes() {
+  const isAuth = await useAuth();
   console.log('is auth: ' + isAuth);
-  console.log('is auth: ' + JSON.stringify(isAuth));
+  // console.log('is auth: ' + JSON.stringify(isAuth));
   //pass the auth token to the Outlet
   return isAuth ? <Outlet /> : <Navigate to="/login" />;
 }
