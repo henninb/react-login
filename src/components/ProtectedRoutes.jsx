@@ -78,8 +78,11 @@ export default function ProtectedRoutes() {
   }, []);
 
   useEffect(() => {
-    fetchUserAuth();
-  }, [fetchUserAuth])
+    if( !auth) {
+      fetchUserAuth();
+      console.log("auth:" + auth);
+    }
+  }, [fetchUserAuth, auth])
 
   //const isAuth = await useAuth();
   //console.log('is auth: ' + isAuth);
