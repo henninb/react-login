@@ -29,13 +29,10 @@ export default function Login() {
     return response.data;
   };
 
-  const handleClick = async (e) => {
+  const handleClick = async (event) => {
     console.log("login submit was clicked");
-    //document.getElementById("login-result").innerHTML = "comment";
+    event.preventDefault();
 
-    e.preventDefault();
-
-    //const {name, value} = e.target;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let data = {
