@@ -5,9 +5,10 @@ import { Navigate, Outlet } from "react-router-dom";
 export default function ProtectedRoutes() {
 // delete a cookie
 // document.cookie = 'access-token=; Max-Age=0'
-  const [auth, setAuth] = useState(null)
+  //const [auth, setAuth] = useState(true);
+  const [auth, setAuth] = useState(null);
 
-  function getCookies() {
+  async function getCookies() {
       console.log('getCookies');
       let cookies = document.cookie.split(';');
       let authTokens = {
@@ -17,8 +18,9 @@ export default function ProtectedRoutes() {
       for (const cookie of cookies) {
           let cookiePair = cookie.split('=');
 
-          if (authTokens.hasOwnProperty(cookiePair[0].trim().toLowerCase()))
+          if (authTokens.hasOwnProperty(cookiePair[0].trim().toLowerCase())) {
               authTokens[cookiePair[0].trim()] = decodeURIComponent(cookiePair[1]);
+          }
       }
 
       return authTokens;
@@ -37,7 +39,7 @@ export default function ProtectedRoutes() {
     });
 
     return response.data;
-    } catch (error ) {
+    } catch ( error ) {
       console.log(error.data);
       window.location.href = '/login'
     }
@@ -66,8 +68,8 @@ export default function ProtectedRoutes() {
 
   const fetchUserAuth = useCallback(async () => {
 
-    console.log('useAuth');
-    const token = getCookies();
+    console.log('fetchUserAuth');
+    const token = await getCookies();
     if( token && token["access-token"] ) {
       const authBoolean = await authApiCall(token["access-token"]);
       if( authBoolean === true ) {
@@ -80,10 +82,11 @@ export default function ProtectedRoutes() {
   }, []);
 
   useEffect(() => {
+    // setAuth(true);
     if( !auth ) {
       const result = fetchUserAuth();
-      console.log("auth:" + auth);
-      console.log("result:" + result);
+    //   console.log("auth:" + auth);
+    //   console.log("result:" + result);
     }
   }, [fetchUserAuth, auth])
 
@@ -91,7 +94,8 @@ export default function ProtectedRoutes() {
   //console.log('is auth: ' + isAuth);
  // console.log('isAuth: ' + JSON.stringify(isAuth));
   //pass the auth token to the Outlet
+    //auth ? <Outlet /> : <Navigate to="/login" />
   return (
-    auth ? <Outlet /> : <Navigate to="/login" />
+    auth ? <Outlet /> : null
   )
 }
