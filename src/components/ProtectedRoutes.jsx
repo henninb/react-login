@@ -38,6 +38,7 @@ function getCookies() {
       console.log(error.data);
       window.location.href = '/login'
     }
+    return false
     //return response.data.toLowerCase() === 'true'
   };
 
@@ -57,6 +58,7 @@ const useAuth = async () => {
 
 export default function ProtectedRoutes() {
   const isAuth = useAuth();
+  console.log('is auth: ' + isAuth);
   //pass the auth token to the Outlet
   return isAuth ? <Outlet /> : <Navigate to="/login" />;
 }
