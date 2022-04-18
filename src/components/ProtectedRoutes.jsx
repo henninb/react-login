@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { Navigate, Outlet } from "react-router-dom";
 
+// delete a cookie
+// document.cookie = 'access-token=; Max-Age=0'
+
 function getCookies() {
+    console.log('getCookies');
     let cookies = document.cookie.split(';');
     let authTokens = {
         'access-token': null
@@ -18,9 +22,9 @@ function getCookies() {
 }
 
   const authApiCall = async (payload) => {
-    let endpoint =  '/api/auth';
+    console.log('authApiCall');
 
-    const response = await axios.get(endpoint, {
+    const response = await axios.get("/api/auth", {
       timeout: 0,
       headers: {
         "Content-Type": "application/text",
@@ -32,14 +36,16 @@ function getCookies() {
   };
 
 const useAuth = async () => {
+    console.log('useAuth');
   const token = getCookies();
   if( token && token["access-token"] ) {
     const authBoolean = await authApiCall(token["access-token"]);
     if( authBoolean === true ) {
-    // console.log(token["access-token"]);
+      console.log("true: " + token["access-token"]);
       return true
     }
   }
+    console.log("false: " + token["access-token"]);
   return false
 };
 
