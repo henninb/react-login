@@ -72,15 +72,18 @@ export default function ProtectedRoutes() {
       const authBoolean = await authApiCall(token["access-token"]);
       if( authBoolean === true ) {
         setAuth(true)
+        return true
       }
     }
     setAuth(false)
+    return false
   }, []);
 
   useEffect(() => {
-    if( !auth) {
-      fetchUserAuth();
+    if( !auth ) {
+      const result = fetchUserAuth();
       console.log("auth:" + auth);
+      console.log("result:" + result);
     }
   }, [fetchUserAuth, auth])
 
