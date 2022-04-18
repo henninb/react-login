@@ -44,9 +44,10 @@ export default function Login() {
     try {
       let response = await userLogin(data);
       console.log("response: " + JSON.stringify(response));
-     window.location.href = '/home'
+      window.location.href = '/'
     } catch (error) {
       console.log(error.data);
+      window.location.href = '/login'
     }
   };
 

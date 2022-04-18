@@ -24,6 +24,7 @@ function getCookies() {
   const authApiCall = async (payload) => {
     console.log('authApiCall');
 
+    try {
     const response = await axios.get("/api/auth", {
       timeout: 0,
       headers: {
@@ -32,8 +33,12 @@ function getCookies() {
       },
     });
 
-    // return response.data;
-    return response.data.toLowerCase() === 'true'
+    return response.data;
+    } catch (error ) {
+      console.log(error.data);
+      window.location.href = '/login'
+    }
+    //return response.data.toLowerCase() === 'true'
   };
 
 const useAuth = async () => {
