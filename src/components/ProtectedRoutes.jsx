@@ -18,17 +18,12 @@ function getCookies() {
 
 const useAuth = () => {
   const token = getCookies();
-  // const user = { loggedIn: false };
-  if( token ) {
+  if( token && token["access-token"] ) {
     //call
-    // console.log('check for auth: ' + user.loggedIn);
     console.log(token);
     console.log(token["access-token"]);
-    // user.loggedIn = true
     return true
   }
-  // console.log(user.loggedIn);
-  //return user && user.loggedIn;
   return false
 };
 
