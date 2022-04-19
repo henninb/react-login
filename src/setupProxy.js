@@ -37,6 +37,27 @@ module.exports = function (app) {
       // },
     })
   );
+
+  app.use(
+    //"/api/v1/schedule?startDate=1/01/2022&endDate=12/31/2022&gameTypes=R&sportId=1&teamId=142&hydrate=decisions",
+    "/api/v1/schedule",
+    createProxyMiddleware({
+      target:
+        //"https://statsapi.mlb.com/api/v1/schedule?startDate=1/01/2022&endDate=12/31/2022&gameTypes=R&sportId=1&teamId=142&hydrate=decisions",
+        "https://statsapi.mlb.com",
+      // secure: true,
+      // loglevel: 'debug',
+      headers: {
+        accept: "application/json",
+        method: "GET",
+      },
+      changeOrigin: true,
+      // router: {
+      //   "/api/admin": "https://culture.seocho.go.kr:3000",
+      // },
+    })
+  );
+
   // app.use(
   //   "/api_coin",
   //   createProxyMiddleware({
