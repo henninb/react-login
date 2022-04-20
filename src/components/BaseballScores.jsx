@@ -18,7 +18,8 @@ export default function BaseballScores() {
     };
 
        try {
-        const response = await axios.get("/api/v1/schedule", {params})
+        //const response = await axios.get("/api/v1/schedule", {params})
+        const response = await axios.get("/api/v1/schedule")
         console.log('apiCall was made.');
          console.log(response.data.dates);
 
