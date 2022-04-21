@@ -26,7 +26,7 @@ export default function BaseballScores() {
          // console.log(response.data.dates);
 
          Object.entries(response.data.dates).forEach((entry) => {
-           const [key, value] = entry;
+           const [, value] = entry;
            // console.log(`${key}: ${JSON.stringify(value)}`);
            // console.log(value.date);
            // console.log(value.games);
@@ -36,7 +36,7 @@ export default function BaseballScores() {
          const games_flattened = games.flat();
          console.log(games_flattened);
          Object.entries(games_flattened).forEach((entry) => {
-           const [key, value] = entry;
+           const [, value] = entry;
            console.log(value.status);
          });
           setData(games_flattened);
